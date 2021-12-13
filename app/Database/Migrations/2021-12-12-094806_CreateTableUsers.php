@@ -31,16 +31,8 @@ class CreateTableUsers extends Migration
             'constraint' => '255',
             'null' => false,
           ],
-          'created_at' => [
-            'type' => 'datetime',
-            'default' => 'CURRENT_TIMESTAMP',
-            'null' => false,
-          ],
-          'updated_at' => [
-            'type' => 'datetime',
-            'default' => 'CURRENT_TIMESTAMP',
-            'null' => false,
-          ],
+          'created_at datetime default current_timestamp',
+          'updated_at datetime default current_timestamp',
         ]
       );
       $this->forge->addPrimaryKey('id');

@@ -29,6 +29,16 @@ class CreateTableEvents extends Migration
             'type' => 'text',
             'null' => false,
           ],
+          'begin' => [
+            'type' => 'datetime',
+            'null' => false,
+          ],
+          'end' => [
+            'type' => 'datetime',
+            'null' => false,
+          ],
+          'created_at datetime default current_timestamp',
+          'updated_at datetime default current_timestamp',
         ]
       );
       $this->forge->addPrimaryKey('id');

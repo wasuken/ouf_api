@@ -20,6 +20,8 @@ class CreateTableGroups extends Migration
             'constraint' => '255',
             'null' => false,
           ],
+          'created_at datetime default current_timestamp',
+          'updated_at datetime default current_timestamp',
         ]
       );
       $this->forge->addPrimaryKey('id');
