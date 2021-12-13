@@ -6,14 +6,8 @@ use App\Models\UserModel;
 use \Firebase\JWT\JWT;
 use CodeIgniter\RESTful\ResourceController;
 
-class User extends ResourceController
+class User extends BaseApiController
 {
-  private $db;
-  protected $format = 'json';
-  public function __construct()
-  {
-    $this->db = \Config\Database::connect();
-  }
   public function register()
   {
     $rules = [
@@ -48,14 +42,12 @@ class User extends ResourceController
       $userModel = new UserModel();
 
       $data = [
-        "id" => uniqid(),
         "display_name" => $this->request->getVar("name"),
         "email" => $this->request->getVar("email"),
         "password_hash" => password_hash($this->request->getVar("password"), PASSWORD_DEFAULT),
       ];
 
       $rst = $userModel->insert($data);
-      log_message('debug', $rst);
 
       if($rst) {
 
@@ -77,11 +69,6 @@ class User extends ResourceController
     }
 
     return $this->respondCreated($response);
-  }
-
-  private function getKey()
-  {
-    return getenv('app.jwt.key');
   }
 
   public function login()
@@ -123,20 +110,7 @@ class User extends ResourceController
 
           $key = $this->getKey();
 
-          $iat = time(); // current timestamp value
-          $nbf = $iat + 10;
-          $exp = $iat + 3600;
-
-          $payload = array(
-            "iss" => "The_claim",
-            "aud" => "The_Aud",
-            "iat" => $iat, // issued at
-            "nbf" => $nbf, //not before in seconds
-            "exp" => $exp, // expire time in seconds
-            "data" => $userdata,
-          );
-
-          $token = JWT::encode($payload, $key);
+          $token = JWT::encode($userdata, $key);
 
           $response = [
             'status' => 200,
@@ -169,23 +143,6 @@ class User extends ResourceController
     }
   }
 
-  private function _auth($token)
-  {
-    $key = $this->getKey();
-    $authHeader = $this->request->getHeader("Authorization");
-    $authHeader = $authHeader->getValue();
-    $token = $authHeader;
-
-    $rst = true;
-
-    try {
-      $decoded = JWT::decode($token, $key, array("HS256"));
-
-    } catch (Exception $ex) {
-      $rst = false;
-    }
-    return true;
-  }
 
   public function details()
   {
