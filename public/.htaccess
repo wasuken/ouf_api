@@ -36,6 +36,9 @@ Options All -Indexes
 	# Ensure Authorization header is passed along
 	RewriteCond %{HTTP:Authorization} .
 	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+  Header set Access-Control-Allow-Origin "http://localhost*"
+  Header set Access-Control-Allow-Methods: "GET,POST,DELETE,PUT"
 </IfModule>
 
 <IfModule !mod_rewrite.c>
