@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\UserModel;
+use \Firebase\JWT\JWT;
 
 class BaseApiController extends ResourceController
 {
@@ -25,7 +26,9 @@ class BaseApiController extends ResourceController
     try {
       $rst = JWT::decode($token, $key, array("HS256"));
 
-    } catch (Exception $ex) {
+    } catch (\Exception $ex) {
+      $rst = false;
+    } catch (\Error $ex) {
       $rst = false;
     }
     return $rst;

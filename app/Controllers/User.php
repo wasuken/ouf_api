@@ -11,14 +11,14 @@ class User extends BaseApiController
   public function register()
   {
     $rules = [
-      "name" => "required",
+      "display_name" => "required",
       "email" => "required|valid_email|is_unique[users.email]|min_length[6]",
       "password" => "required",
     ];
 
     $messages = [
-      "name" => [
-        "required" => "Name is required"
+      "display_name" => [
+        "required" => "DisplayName is required"
       ],
       "email" => [
         "required" => "Email required",
@@ -202,55 +202,6 @@ class User extends BaseApiController
       $this->respond($data, 200);
     }
   }
-  public function create()
-  {
-    $validation =  \Config\Services::validation();
-    $rules = [
-      'name' => [
-        'label' => '表示名',
-        'rules' => 'required|min_length[3]|max_length[40]',
-      ],
-      'email' => [
-        'label' => '表示名',
-        'rules' => 'required|valid_email|is_unique[users.email]',
-      ],
-      'password' => [
-        'label' => '表示名',
-        'rules' => 'required|min_length[8]'
-      ],
-    ];
-    $data = [
-      "status" => 200,
-      "msg" => "",
-    ];
-    try{
-      $this->db->transBegin();
-      $pwd_hash = password_hash(
-        $this->request->getVar('password'),
-        PASSWORD_DEFAULT
-      );
-      if ($this->validate($rules)) {
-        $user = new UserModel();
-        $userdata = [
-          "email" => $this->request->getVar("email"),
-          "display_name" => $this->request->getVar('name'),
-          "password_hash" => $pwd_hash,
-        ];
-        $user->save($userdata);
-      } else {
-        $data["validation"] = $validation->getErrors();
-      }
-      $this->db->transCommit();
-    }catch(\Exception $e){
-      log_message('error', $e);
-      $this->db->transRollback();
-    }catch(\Error $e){
-      log_message('error', $e);
-      $this->db->transRollback();
-    }finally{
-      $this->respond($data, 200);
-    }
-  }
   public function update($id = null)
   {
     $validation =  \Config\Services::validation();
@@ -260,11 +211,11 @@ class User extends BaseApiController
         'rules' => 'required|min_length[3]|max_length[40]',
       ],
       'email' => [
-        'label' => '表示名',
+        'label' => 'メールアドレス',
         'rules' => 'required|valid_email|is_unique[users.email]',
       ],
       'password' => [
-        'label' => '表示名',
+        'label' => 'パスワード',
         'rules' => 'required|min_length[8]'
       ],
     ];
