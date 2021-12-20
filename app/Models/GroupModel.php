@@ -15,7 +15,7 @@ class GroupModel extends Model
   protected $returnType       = 'array';
   protected $useSoftDeletes   = false;
   protected $protectFields    = true;
-  protected $allowedFields    = ['id', 'display_name'];
+  protected $allowedFields    = ['id', 'display_name', 'created_at', 'updated_at'];
 
   // Dates
   protected $useTimestamps = true;

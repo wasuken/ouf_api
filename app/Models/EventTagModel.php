@@ -4,27 +4,20 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class EventModel extends Model
+use CodeIgniter\Model;
+
+class EventTagModel extends Model
 {
   use StrIdModelTrait;
   protected $DBGroup          = 'default';
-  protected $table            = 'events';
-  protected $primaryKey       = 'id';
-  protected $useAutoIncrement = false;
+  protected $table            = 'event_tags';
+  protected $primaryKey       = ['event_id', 'name']
+    protected $useAutoIncrement = true;
   protected $insertID         = 0;
   protected $returnType       = 'array';
   protected $useSoftDeletes   = false;
   protected $protectFields    = true;
-  protected $allowedFields    = [
-    'id',
-    'organizer_user_id',
-    'title',
-    'description',
-    'begin',
-    'end',
-    'created_at',
-    'updated_at',
-  ];
+  protected $allowedFields    = ['event_id', 'name', 'created_at', 'updated_at'];
 
   // Dates
   protected $useTimestamps = true;
@@ -49,5 +42,4 @@ class EventModel extends Model
   protected $afterFind      = [];
   protected $beforeDelete   = [];
   protected $afterDelete    = [];
-
 }

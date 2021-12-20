@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class UserEventParticipateModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'usereventparticipates';
+    protected $table            = 'user_event_participates';
     protected $primaryKey       = ['user_id', 'event_id'];
     protected $useAutoIncrement = false;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'event_id'];
+    protected $allowedFields    = ['user_id', 'event_id', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;

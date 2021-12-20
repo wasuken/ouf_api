@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class UserEventChatModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'usereventchats';
+    protected $table            = 'user_event_chats';
     // protected $primaryKey       = 'id';
     protected $primaryKey       = ['user_id', 'event_id'];
     protected $useAutoIncrement = false;
@@ -15,7 +15,7 @@ class UserEventChatModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'event_id', 'contents'];
+    protected $allowedFields    = ['user_id', 'event_id', 'contents', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;

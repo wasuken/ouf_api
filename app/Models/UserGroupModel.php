@@ -7,14 +7,15 @@ use CodeIgniter\Model;
 class UserGroupModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'usergroups';
-    protected $primaryKey       = 'id';
+    protected $table            = 'user_groups';
+    // protected $primaryKey       = 'id';
+    protected $primaryKey       = ['user_id', 'group_id'];
     protected $useAutoIncrement = false;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'group_id'];
+    protected $allowedFields    = ['user_id', 'group_id', 'created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;
