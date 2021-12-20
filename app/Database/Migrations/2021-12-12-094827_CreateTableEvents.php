@@ -29,11 +29,19 @@ class CreateTableEvents extends Migration
             'type' => 'text',
             'null' => false,
           ],
-          'begin' => [
+          'event_begin' => [
             'type' => 'datetime',
             'null' => false,
           ],
-          'end' => [
+          'event_end' => [
+            'type' => 'datetime',
+            'null' => false,
+          ],
+          'participate_begin' => [
+            'type' => 'datetime',
+            'null' => false,
+          ],
+          'participate_end' => [
             'type' => 'datetime',
             'null' => false,
           ],
