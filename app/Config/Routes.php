@@ -24,12 +24,11 @@ $routes->set404Override();
 $routes->setAutoRoute(true);
 
 $routes->group("api", function ($routes) {
-    $routes->post("register", "User::register");
-    $routes->post("login", "User::login");
-    $routes->get("profile", "User::details");
+    $routes->post("user/register", "User::register");
+    $routes->post("user/login", "User::login");
+    $routes->get("user/profile", "User::details");
 
     $routes->get("user/(:id)", "User::detail");
-    $routes->post("user", "User::create");
     $routes->put("user", "User::update");
     $routes->delete("user", "User::del");
 });
