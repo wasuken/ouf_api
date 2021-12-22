@@ -6,7 +6,7 @@ use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\ControllerTestTrait;
 use CodeIgniter\Test\DatabaseTestTrait;
 
-class EventTest extends CIUnitTestCase
+class UserEventChatTest extends CIUnitTestCase
 {
   use ControllerTestTrait, DatabaseTestTrait;
   /**
@@ -19,12 +19,10 @@ class EventTest extends CIUnitTestCase
   {
     $methods = [
       'index',
-      'detail',
       'create',
-      'participate',
     ];
     foreach($methods as $m){
-      $result = $this->controller(\App\Controllers\Event::class)
+      $result = $this->controller(\App\Controllers\UserEventChat::class)
                      ->execute($m);
 
       $this->assertTrue($result->isOK());

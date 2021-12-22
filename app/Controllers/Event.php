@@ -39,10 +39,11 @@ class Event extends BaseApiController
     $event_model = new EventModel();
 
     $authHeader = $this->request->getHeader("Authorization");
+    $token = "";
     if(!empty($authHeader)){
       $authHeader = $authHeader->getValue();
+      $token = $authHeader;
     }
-    $token = $authHeader;
 
     $userdata = $this->_auth($token);
 
@@ -88,8 +89,11 @@ class Event extends BaseApiController
     $event_model = new EventModel();
 
     $authHeader = $this->request->getHeader("Authorization");
-    $authHeader = $authHeader->getValue();
-    $token = $authHeader;
+    $token = "";
+    if(!empty($authHeader)){
+      $authHeader = $authHeader->getValue();
+      $token = $authHeader;
+    }
 
     $userdata = $this->_auth($token);
 
@@ -112,9 +116,6 @@ class Event extends BaseApiController
    */
   public function create()
   {
-    $authHeader = $this->request->getHeader("Authorization");
-    $authHeader = $authHeader->getValue();
-    $token = $authHeader;
 
     $rules = [
       "name" => "required",
@@ -127,6 +128,12 @@ class Event extends BaseApiController
 
     if(!empty($_POST['tags'])){
       $tags = $_POST['tags'];
+    }
+    $authHeader = $this->request->getHeader("Authorization");
+    $token = "";
+    if(!empty($authHeader)){
+      $authHeader = $authHeader->getValue();
+      $token = $authHeader;
     }
 
     $userdata = $this->_auth($token);
@@ -190,10 +197,6 @@ class Event extends BaseApiController
     $em = new EventModel();
 
     $authHeader = $this->request->getHeader("Authorization");
-    $authHeader = $authHeader->getValue();
-    $token = $authHeader;
-
-    $userdata = $this->_auth($token);
 
     if(empty($userdata)){
       $response = [
@@ -203,6 +206,11 @@ class Event extends BaseApiController
         'data' => []
       ];
       return $this->respondCreated($response);
+    }
+    $token = "";
+    if(!empty($authHeader)){
+      $authHeader = $authHeader->getValue();
+      $token = $authHeader;
     }
 
     $rules = [

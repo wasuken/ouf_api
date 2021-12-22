@@ -20,8 +20,11 @@ class UserEventChat extends BaseApiController{
     $event_model = new UserEventChatModel();
 
     $authHeader = $this->request->getHeader("Authorization");
-    $authHeader = $authHeader->getValue();
-    $token = $authHeader;
+    $token = "";
+    if(!empty($authHeader)){
+      $authHeader = $authHeader->getValue();
+      $token = $authHeader;
+    }
 
     $userdata = $this->_auth($token);
 
@@ -65,8 +68,13 @@ class UserEventChat extends BaseApiController{
     $response['data'] = $chat_list;
     return $this->respondCreated($response);
   }
-  // チャット登録
-  public function chat()
+  /**
+   * create 
+   * チャット登録
+   * @access public
+   * @return void
+   */
+  public function create()
   {
     $response = [
       'status' => 200,
@@ -77,8 +85,12 @@ class UserEventChat extends BaseApiController{
     $event_model = new UserEventChatModel();
 
     $authHeader = $this->request->getHeader("Authorization");
-    $authHeader = $authHeader->getValue();
     $token = $authHeader;
+    $token = "";
+    if(!empty($authHeader)){
+      $authHeader = $authHeader->getValue();
+      $token = $authHeader;
+    }
 
     $userdata = $this->_auth($token);
 

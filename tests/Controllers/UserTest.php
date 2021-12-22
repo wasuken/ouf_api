@@ -6,7 +6,7 @@ use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\ControllerTestTrait;
 use CodeIgniter\Test\DatabaseTestTrait;
 
-class EventTest extends CIUnitTestCase
+class UserTest extends CIUnitTestCase
 {
   use ControllerTestTrait, DatabaseTestTrait;
   /**
@@ -18,13 +18,14 @@ class EventTest extends CIUnitTestCase
   public function testBasicComm()
   {
     $methods = [
-      'index',
       'detail',
-      'create',
-      'participate',
+      'details',
+      'delete',
+      'login',
+      'register',
     ];
     foreach($methods as $m){
-      $result = $this->controller(\App\Controllers\Event::class)
+      $result = $this->controller(\App\Controllers\User::class)
                      ->execute($m);
 
       $this->assertTrue($result->isOK());

@@ -8,6 +8,12 @@ use CodeIgniter\RESTful\ResourceController;
 
 class User extends BaseApiController
 {
+  /**
+   * register 
+   * ユーザ登録
+   * @access public
+   * @return void
+   */
   public function register()
   {
     $rules = [
@@ -71,6 +77,12 @@ class User extends BaseApiController
     return $this->respondCreated($response);
   }
 
+  /**
+   * login 
+   * ログイン処理
+   * @access public
+   * @return void
+   */
   public function login()
   {
     $rules = [
@@ -144,18 +156,32 @@ class User extends BaseApiController
   }
 
 
+  /**
+   * details 
+   * ユーザ情報取得
+   * @access public
+   * @return void
+   */
   public function details()
   {
     $key = $this->getKey();
     $authHeader = $this->request->getHeader("Authorization");
-    $authHeader = $authHeader->getValue();
-    $token = $authHeader;
-
+    $token = "";
+    if(!empty($authHeader)){
+      $authHeader = $authHeader->getValue();
+      $token = $authHeader;
+    }
+    $response = [
+      'status' => 200,
+      'error' => false,
+      'messages' => 'User details',
+      'data' => [
+      ]
+    ];
     try {
       $decoded = JWT::decode($token, $key, array("HS256"));
 
       if ($decoded) {
-
         $response = [
           'status' => 200,
           'error' => false,
@@ -165,24 +191,47 @@ class User extends BaseApiController
           ]
         ];
         return $this->respondCreated($response);
+      }else{
+        throw new Exception('認証エラー');
       }
     } catch (Exception $ex) {
-
       $response = [
         'status' => 401,
         'error' => true,
         'messages' => 'Access denied',
         'data' => []
       ];
+    }catch(\Error $e){
+      $response = [
+        'status' => 401,
+        'error' => true,
+        'messages' => 'Access denied',
+        'data' => []
+      ];
+    }finally{
       return $this->respondCreated($response);
     }
   }
+  /**
+   * detail 
+   * ユーザ削除
+   * @param mixed $id 
+   * @access public
+   * @return void
+   */
   public function detail($id = null)
   {
     $data = [
       'status' => 200,
       'msg' => 'success.',
     ];
+    // TODO* 認証関連の実装に入った時に対応
+    $authHeader = $this->request->getHeader("Authorization");
+    $token = "";
+    if(!empty($authHeader)){
+      $authHeader = $authHeader->getValue();
+      $token = $authHeader;
+    }
     try{
       $user_model = new UserModel();
       $user = $user_model->where('id', 'id')->first();
@@ -202,6 +251,13 @@ class User extends BaseApiController
       $this->respond($data, 200);
     }
   }
+  /**
+   * update 
+   * ユーザ情報更新
+   * @param mixed $id 
+   * @access public
+   * @return void
+   */
   public function update($id = null)
   {
     $validation =  \Config\Services::validation();
@@ -250,6 +306,13 @@ class User extends BaseApiController
       $this->respond($data, 200);
     }
   }
+  /**
+   * delete 
+   * 削除未実装
+   * @param mixed $id 
+   * @access public
+   * @return void
+   */
   public function delete($id = null)
   {
     $data = [];

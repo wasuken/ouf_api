@@ -4,15 +4,13 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-use CodeIgniter\Model;
-
 class EventTagModel extends Model
 {
   use StrIdModelTrait;
   protected $DBGroup          = 'default';
   protected $table            = 'event_tags';
-  protected $primaryKey       = ['event_id', 'name']
-    protected $useAutoIncrement = true;
+  protected $primaryKey       = ['event_id', 'name'];
+  protected $useAutoIncrement = true;
   protected $insertID         = 0;
   protected $returnType       = 'array';
   protected $useSoftDeletes   = false;
