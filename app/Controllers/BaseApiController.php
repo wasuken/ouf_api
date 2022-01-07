@@ -5,47 +5,45 @@ use CodeIgniter\RESTful\ResourceController;
 use App\Models\UserModel;
 use \Firebase\JWT\JWT;
 
-class BaseApiController extends ResourceController
+use CodeIgniter\API\ResponseTrait;
+
+class BaseApiController extends BaseController
 {
-  protected $db;
-  protected $format = 'json';
-  public function __construct()
-  {
-    $this->db = \Config\Database::connect();
-  }
-  protected function getKey()
-  {
-    return getenv('app.jwt.key');
-  }
-  protected function _auth($token)
-  {
-    $key = $this->getKey();
-
-    $rst = false;
-
-    try {
-      $rst = JWT::decode($token, $key, array("HS256"));
-
-    } catch (\Exception $ex) {
-      $rst = false;
-    } catch (\Error $ex) {
-      $rst = false;
+    use ResponseTrait;
+    protected $format = 'json';
+    protected function getKey()
+    {
+        return getenv('app.jwt.key');
     }
-    return $rst;
-  }
-  protected function _login($email, $password)
-  {
-    $userModel = new UserModel();
+    protected function _auth($token)
+    {
+        $key = $this->getKey();
 
-    $userdata = $userModel
-      ->where("email", $email)
-      ->first();
+        $rst = false;
 
-    if(!empty($userdata) &&
-      (password_verify($password, $userdata['password_hash']))){
-      return $userdata;
-    }else{
-      return false;
+        try {
+            $rst = JWT::decode($token, $key, array("HS256"));
+
+        } catch (\Exception $ex) {
+            $rst = false;
+        } catch (\Error $ex) {
+            $rst = false;
+        }
+        return $rst;
     }
-  }
+    protected function _login($email, $password)
+    {
+        $userModel = new UserModel();
+
+        $userdata = $userModel
+                  ->where("email", $email)
+                  ->first();
+
+        if(!empty($userdata) &&
+           (password_verify($password, $userdata['password_hash']))){
+            return $userdata;
+        }else{
+            return false;
+        }
+    }
 }

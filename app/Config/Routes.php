@@ -23,15 +23,13 @@ $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
 
-$routes->group("api", function ($routes) {
-    $routes->post("user/register", "User::register");
-    $routes->post("user/login", "User::login");
-    $routes->get("user/profile", "User::details");
+$routes->post("user/register", "User::register");
+$routes->post("user/login", "User::login");
+$routes->get("user/profile", "User::details");
 
-    $routes->get("user/(:id)", "User::detail");
-    $routes->put("user", "User::update");
-    $routes->delete("user", "User::del");
-});
+$routes->get("user/(:id)", "User::detail");
+$routes->put("user", "User::update");
+$routes->delete("user", "User::del");
 
 
 /*

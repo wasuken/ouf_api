@@ -8,21 +8,19 @@ use App\Models\UserEventChatModel;
 use App\Models\EventTagModel;
 
 /**
- * Event 
- * 
+ * Event
+ *
  * @uses BaseApiController
- * @package 
- * @version 
- * @copyright 
- * @author wasuken <wasuken1@gmail.com> 
+ * @package
+ * @version
+ * @copyright
+ * @author wasuken <wasuken1@gmail.com>
  * @license MIT
  */
 class Event extends BaseApiController
 {
-  protected $db;
-
   /**
-   * index 
+   * index
    * TODO: そこそこの検索機能を追加する。
    * 別関数にしても良い。
    * イベント一覧
@@ -61,7 +59,7 @@ class Event extends BaseApiController
 
   }
   /**
-   * detail 
+   * detail
    * イベント単体情報取得
    * @access public
    * @return void
@@ -103,7 +101,7 @@ class Event extends BaseApiController
 
   }
   /**
-   * create 
+   * create
    * イベント作成
    *   "name" => "required",
    *   "title" => "required",
@@ -180,7 +178,7 @@ class Event extends BaseApiController
   }
 
   /**
-   * participate 
+   * participate
    * イベント参加
    * @access public
    * @return void
